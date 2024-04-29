@@ -22,21 +22,17 @@ namespace PastebinTest
         {
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             var element = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("postform-text")));
-
-            // Setting paste text
             element.SendKeys(code);
 
             var expirationDropdown = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("select2-postform-expiration-container")));
             expirationDropdown.Click();
 
-            // Setting 10 minutes paste expiration
             var option = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//li[text()='10 Minutes']")));
             option.Click();
 
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript("arguments[0].setAttribute('aria-activedescendant', 'select2-postform-expiration-result-fjlh-10M')", expirationDropdown);
 
-            // Setting paste name
             var titleInput = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("postform-name")));
             titleInput.SendKeys(title);
 
